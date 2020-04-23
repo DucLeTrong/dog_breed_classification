@@ -58,5 +58,7 @@ if __name__ == '__main__':
                                                 shuffle=False)
     criterion = nn.CrossEntropyLoss()
     model = torch.load('model.pt')
+    if use_cuda:
+        model = model.cuda()
 
     test(test_loader, model, criterion, use_cuda)
