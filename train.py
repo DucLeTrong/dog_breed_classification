@@ -73,6 +73,7 @@ def train(n_epochs, loaders, model, optimizer, criterion, use_cuda, save_path):
 
 if __name__ == "__main__":
     use_cuda = torch.cuda.is_available()
+    print("use_cuda",use_cuda)
     batch_size = 20
     num_workers = 0
     data_directory = 'dogImages/'
@@ -88,7 +89,7 @@ if __name__ == "__main__":
                                         transforms.RandomHorizontalFlip(),
                                         transforms.ToTensor(),
                                         standard_normalization]),
-                    'val': transforms.Compose([transforms.Resize(256),
+                    'valid': transforms.Compose([transforms.Resize(256),
                                         transforms.CenterCrop(224),
                                         transforms.ToTensor(),
                                         standard_normalization]),
@@ -98,7 +99,7 @@ if __name__ == "__main__":
                     }
 
     train_data = datasets.ImageFolder(train_directory, transform=data_transforms['train'])
-    valid_data = datasets.ImageFolder(valid_directory, transform=data_transforms['val'])
+    valid_data = datasets.ImageFolder(valid_directory, transform=data_transforms['valid'])
     test_data = datasets.ImageFolder(test_directory, transform=data_transforms['test'])
 
     train_loader = torch.utils.data.DataLoader(train_data,
