@@ -12,7 +12,7 @@ import random
 
 
 def face_detector(img_path):
-	face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
     img = cv2.imread(img_path)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray)
@@ -61,7 +61,12 @@ def human_dog_predictor(img_path, model):
         for breed, conf in zip(breeds, confidence):
             resemblance += f"  - {breed.split('.')[1]}\n"
         title += (f"Most Resembled Breeds:\n{resemblance}")
-        plt.title(title,loc='left', y=-0.2)
+        # plt.title(title,loc='left', y=-0.2)
+        ec = (0, .6, .1)
+        fc = (0, .7, .2)
+        ax.text(0, -100, title, size=10, rotation=0,
+                    ha="left", va="top", 
+                    bbox=dict(boxstyle="round", ec=ec, fc=fc))
         plt.axis('off')
         
         for i, breed in enumerate(breeds):
@@ -71,13 +76,19 @@ def human_dog_predictor(img_path, model):
             img = mpimg.imread(path)
             ax = fig.add_subplot(3,2,(i+1)*2)
             ax.imshow(img.squeeze(), cmap="gray", interpolation='nearest')
-            plt.title(breed.split('.')[1])
+            # plt.title(breed.split('.')[1])
+            ec = (0, .6, .1)
+            fc = (0, .7, .2)
+            ax.text(0, -20, breed.split('.')[1], size=10, rotation=0,
+                    ha="left", va="top", 
+                    bbox=dict(boxstyle="round", ec=ec, fc=fc))
             plt.axis('off')
+        fig.savefig('result.jpg')
         plt.show()
     
     
     elif confidence[0] > 0.3:
-        title = ("This is a !")
+        title = ("Hey there DOG! \n")
         
         img = mpimg.imread(img_path)
         ax =fig.add_subplot(1,2,1) 
@@ -88,7 +99,12 @@ def human_dog_predictor(img_path, model):
             if conf > 0.005:
                 predictions += f"  - {breed.split('.')[1]} ({(conf*100):.0f}%)\n"
         title += (f"Predicted Breed (confidence):\n{predictions}")
-        plt.title(title,loc='left', y=-0.2)
+        # plt.title(title,loc='left', y=-0.2)
+        ec = (0, .6, .1)
+        fc = (0, .7, .2)
+        ax.text(0, -50, title, size=10, rotation=0,
+                    ha="left", va="top", 
+                    bbox=dict(boxstyle="round", ec=ec, fc=fc))
 
         for i, breed in enumerate(breeds):
             subdir = '/'.join(['dogImages/valid', breed])
@@ -97,8 +113,13 @@ def human_dog_predictor(img_path, model):
             img = mpimg.imread(path)
             ax = fig.add_subplot(3,2,(i+1)*2)
             ax.imshow(img.squeeze(), cmap="gray", interpolation='nearest')
-            plt.title(breed.split('.')[1])
+            # plt.title(breed.split('.')[1])
             plt.axis('off')
+            ec = (0, .6, .1)
+            fc = (0, .7, .2)
+            ax.text(0, -20, breed.split('.')[1], size=10, rotation=0,
+                    ha="left", va="top", 
+                    bbox=dict(boxstyle="round", ec=ec, fc=fc))
         fig.savefig('result.jpg')
         plt.show() 
         
@@ -111,7 +132,7 @@ def human_dog_predictor(img_path, model):
     
     print("\n"*3)
     
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    model = torch.load("model_r501.pt")
-    human_dog_predictor('/content/cho.jpg',model)
+#     model = torch.load("model_r501.pt")
+#     human_dog_predictor('/content/cho.jpg',model)
