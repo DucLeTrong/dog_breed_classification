@@ -9,7 +9,9 @@ from torch.autograd import Variable
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import random
-
+import argparse
+import warnings
+warnings.filterwarnings("ignore")
 
 def face_detector(img_path):
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
@@ -48,6 +50,7 @@ def human_dog_predictor(img_path, model):
     most likely breeds are returned. If the image contains a human, the closest resembling dog
     breeds are returned.'''
     
+    print("Runing....")
     breeds, confidence = predict_breed(img_path, model)
         
     fig = plt.figure(figsize=(18,9))
@@ -70,7 +73,7 @@ def human_dog_predictor(img_path, model):
         plt.axis('off')
         
         for i, breed in enumerate(breeds):
-            subdir = '/'.join(['dogImages/valid', breed])
+            subdir = '/'.join(['img', breed])
             file = random.choice(os.listdir(subdir))
             path = '/'.join([subdir, file])
             img = mpimg.imread(path)
@@ -83,7 +86,7 @@ def human_dog_predictor(img_path, model):
                     ha="left", va="top", 
                     bbox=dict(boxstyle="round", ec=ec, fc=fc))
             plt.axis('off')
-        fig.savefig('result.jpg')
+        fig.savefig('result/result.jpg')
         plt.show()
     
     
@@ -107,7 +110,7 @@ def human_dog_predictor(img_path, model):
                     bbox=dict(boxstyle="round", ec=ec, fc=fc))
 
         for i, breed in enumerate(breeds):
-            subdir = '/'.join(['dogImages/valid', breed])
+            subdir = '/'.join(['img', breed])
             file = random.choice(os.listdir(subdir))
             path = '/'.join([subdir, file])
             img = mpimg.imread(path)
@@ -120,7 +123,7 @@ def human_dog_predictor(img_path, model):
             ax.text(0, -20, breed.split('.')[1], size=10, rotation=0,
                     ha="left", va="top", 
                     bbox=dict(boxstyle="round", ec=ec, fc=fc))
-        fig.savefig('result.jpg')
+        fig.savefig('result/result.jpg')
         plt.show() 
         
     else:
@@ -130,9 +133,21 @@ def human_dog_predictor(img_path, model):
         plt.axis('off')
         plt.show()     
     
-    print("\n"*3)
+    print('Done!')
     
-# if __name__ == '__main__':
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    arser = argparse.ArgumentParser()
 
-#     model = torch.load("model_r501.pt")
-#     human_dog_predictor('/content/cho.jpg',model)
+    parser.add_argument('--model_path', type=str,
+                        default='model.pt')
+
+    parser.add_argument('--img_path', type=str,
+                        default='test.jpg')
+
+    args = parser.parse_args()
+    model_path = args.model_path
+    img_path = args.img_path
+    print("Loading.... \n")
+    model = torch.load(model_path)
+    human_dog_predictor(img_path,model)
