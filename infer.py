@@ -67,7 +67,7 @@ def human_dog_predictor(img_path, model):
         # plt.title(title,loc='left', y=-0.2)
         ec = (0, .6, .1)
         fc = (0, .7, .2)
-        ax.text(0, -100, title, size=10, rotation=0,
+        ax.text(0, -40, title, size=10, rotation=0,
                     ha="left", va="top", 
                     bbox=dict(boxstyle="round", ec=ec, fc=fc))
         plt.axis('off')
@@ -105,7 +105,7 @@ def human_dog_predictor(img_path, model):
         # plt.title(title,loc='left', y=-0.2)
         ec = (0, .6, .1)
         fc = (0, .7, .2)
-        ax.text(0, -50, title, size=10, rotation=0,
+        ax.text(0, -40, title, size=10, rotation=0,
                     ha="left", va="top", 
                     bbox=dict(boxstyle="round", ec=ec, fc=fc))
 
