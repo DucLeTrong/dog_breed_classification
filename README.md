@@ -40,17 +40,17 @@ $ python3 test.py
 ```
 $ python3 infer.py --img_path='2.jpg' --model_path='model.pt'
 ```
-- if a __dog__ is detected in the image, return the predicted breed.
+- If a __dog__ is detected in the image, return the predicted breed.
 
 ![png](result/result_dog.jpg)
 
-- if a __human__ is detected in the image, return the resembling dog breed.
+- If a __human__ is detected in the image, return the resembling dog breed.
 
 ![png](result/result_human1.jpg)
 
 ![png](result/result_human2.jpg)
 
-- if __neither__ is detected in the image, provide output that indicates an error.
+- If __neither__ is detected in the image, provide output that indicates an error.
 
 
 
